@@ -1,4 +1,4 @@
 import interface
 
-interface.run_cripl("test.cripl")
+interface.run_angl("test.angl")
 

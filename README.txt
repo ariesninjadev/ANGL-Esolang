@@ -1,21 +1,21 @@
-----------------------------------------------------------------------------
+---------------------------------------------------------------
 
- .d8888b.   8888888b.   888888888  8888888b.   888      
-d88P  Y88b  888   Y88b     888     888   Y88b  888     
-888    888  888    888     888     888    888  888      ,888, 
-888         888   d88P     888     888   d88P  888    ,d8P"Y8b,  
-888         8888888P"      888     8888888P"   888   I8"     "8I   
-888    888  888 T88b       888     888         888      
-Y88b  d88P  888  T88b      888     888         888      
- "Y8888P"   888   T88b  888888888  888         8888888888888888888
+       d8888   888b    888    .d8888b.    888      
+      d88888   8888b   888   d88P  Y88b   888      
+     d88P888   88888b  888   888    888   888      
+    d88P 888   888Y88b 888   888          888      
+   d88P  888   888 Y88b888   888  88888   888      
+  d88P   888   888  Y88888   888    888   888      
+ d8888888888   888   Y8888   Y88b  d88P   888      
+d88P     888   888    Y888    "Y8888P88   88888888
 
-Completely    Random     Insane   Programming       Language
+Abrupt Numerical Graph Language
 
 By Aries Powvalla
-----------------------------------------------------------------------------
+---------------------------------------------------------------
 
-CRIPLing Laws:
-1. Every CRIPL program operates on a 16x16 grid.
+ANGLing Laws:
+1. Every ANGL program operates on a 16x16 grid.
   a. From (1,1) at top left to (16,16) at bottom right.
 2. Space values can span -128 to 128.
 3. At the beginning of the program, the (1,1) tile is selected.
@@ -60,9 +60,9 @@ GPU Utilization
 
 Fully initializing your program is not required. Not initializing your program will simply set the following values:
 
-projectname: Crippled Program
-projectauthor: Anonymous
-projectversion: v0.0
+projectname: AngledScript
+projectauthor: Unknown
+projectversion: v0.1
 process_clock: 20
 error_skipping: 0
 parse_timeout: 100
@@ -70,7 +70,7 @@ builtin_visualizer: 0
 alternate_complier: 0
 max_cache: 6
 
-In order to modify these options in your project, add the line as shown above to the beginning of the .cripl file.
+In order to modify these options in your project, add the line as shown above to the beginning of the .angl file.
 
 NOTE: ONLY LETTERS, NUMBERS, _, AND - CAN BE USED
 
@@ -78,13 +78,13 @@ After modifying settings if desired, a line should be left empty. The line follo
 
 ------------- Init Functions -------------
 
-PROCESS CLOCK -- Milliseconds per tick. CRIPL attempts to run at 10 operations per tick, but upon failing will fallback to the next multiple of ticks. Setting to 0 is not recommended as it disables the purpose of the space operation.
+PROCESS CLOCK -- Milliseconds per tick. ANGL attempts to run at 10 operations per tick, but upon failing will fallback to the next multiple of ticks. Setting to 0 is not recommended as it disables the purpose of the space operation.
 
 ERROR SKIPPING -- Whether errors stop the program and raise a callback or ignore the operation. 1 = SKIP, 0 = FLAG
 
 PARSE TIMEOUT -- Milliseconds an operation is allowed to take to execute fully. Values above 120 are not recommended because if a function takes this long, something is probably broken.
 
-BUILT-IN VISUALIZER -- Versions 1.3 and onward of CRIPL will include a togglable visualizer of the 16x16 grid. Not yet implemented (CURRENTLY USEABLE THROUGH "~")
+BUILT-IN VISUALIZER -- Versions 1.3 and onward of ANGL will include a togglable visualizer of the 16x16 grid. Not yet implemented (CURRENTLY USEABLE THROUGH "~")
 
 ALTERNATE COMPILER -- Whether an alternate compiler is used. Can be useful on unstable platforms, or if main compiler is broken for some reason. 0 = MAIN COMPILER, 1 = ALTERNATE COMPILER, -1 = ATTEMPT BOTH AND OUTPUT LEAST ERRORED BLOCK
 
@@ -137,6 +137,20 @@ s : Subtracts the saved spaces' value from the space(s) selected.
    > If saved and selected space amount match, they subtract correspondingly.
    > If amount of saved spaces are more than or less than amount of selected spaces, saved spaces are added together and the resulting value is subtracted from each selected space.
 
+m : Multiplies the saved spaces' value and the spaces' value(s). Same rules apply.
+
+d : Divides the saved spaces' value from the spaces' value(s). Same rules apply.
+
+% : Performs the modulo of the selected space over the saved space. Same rules apply.
+
+Self Incrementors
+
+{ : Saves the value of all selected spaces' values added together.
+
+} : Saves the value of all selected spaces' values subtracted, in order.
+
+* : Saves the value of all selected spaces' values multiplied together.
+
 
 Standard Outputters
 
@@ -168,6 +182,7 @@ U : Get 1 character user input, convert via ASCII, and save.
 ( : Move selector to the first instance of the saved number (Left-Right, Top-Bottom).
 ) : Move selector to the last instance of the saved number (Bottom-Top, Right-Left).
 
+\ : Sets selected space to 1 if value of selected space is greater than value of saved space.
 = : Sets current space to 1 if current space(s) matches saved value(s), otherwise set to 0. Same amount of tiles must be selected.
 
 
@@ -179,3 +194,4 @@ Miscellaneous
 . : Lock space (Cannot be modified).
 , : Unlock space (Can be modified).
 # : Filler character
+? : Move cursor in a random direction

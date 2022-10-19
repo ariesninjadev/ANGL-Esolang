@@ -1,18 +1,17 @@
 # - # -------------------- # - #
-#         --  CRIPL  --        #
-#          Completely          #
-#            Random            #
-#            Insane            #
-#          Programming         #
+#         --  ANGL  --         #
+#            Abrupt            #
+#           Numerical          #
+#           Graphing           #
 #           Language           #
 # - # -------------------- # - #
 
 # WARNING: DO NOT RUN MULTIPLE THREADS WHEN IMPORTING THIS ENGINE.
 
 
-print("booting cripl 1")
+print("booting angl 1")
 
-import sys, time
+import sys, time, random
 #from matplotlib import pyplot
   
 c = ""
@@ -69,7 +68,7 @@ def execute(cblki, pr):
     for row in grid:
       print(str(row) + "           ")
     #print("")
-    with open(r"test.cripl", 'r') as fp:
+    with open(r"test.angl", 'r') as fp:
       r = len(fp.readlines())
     print("\u001b[{};0H".format(5)) # 0::RDB
     
@@ -141,7 +140,11 @@ def execute(cblki, pr):
         cindex = sindex
         sindex += 1
         heting = 1
-        count = str(x[sindex])
+        try:
+          count = str(x[sindex])
+          int(x[sindex])
+        except:
+          flag("SyntaxError","uncounted loop operation (did you include a number to specify how many times to loop?)")
         while heting == 1:
           sindex += 1
           try:
@@ -180,12 +183,13 @@ def execute(cblki, pr):
   locked = []
   v = []
   newlinec = 0
-  oplist = ['*', '^', 'v', '>', '<', '@', '_', 'Q', 'o', 'q', '+', '-', 'x', '"', "'", 'a', 's', 'P', 'p', 'm', 'f', 'M', 'F', 'r', 'R ', 'c', 'C', 'd', 'D', 'u', 'U', '(', ')', '\n', ' ', ',', '.', 'X','~','#']
+  oplist = ['*', '^', 'v', '>', '<', '@', '_', 'Q', 'o', 'q', '+', '-', 'x', '"', "'", 'a', 's', 'm', 'd', '%', '{', '}', '*', 'P', 'p', 'r', 'R ', 'c', 'C', 'd', 'D', 'u', 'U', '(', ')', '\\', '\n', ' ', ',', '.', 'X','~','#','?']
   
 # ---------------- PURE INTERPRETER -------------------
 
   recind = 0
   vis = 0
+  s= time.time_ns()
   for op in cblk:
     if op == "!":
       flag("Status","program end early (You probably have comments after file end)")
@@ -234,14 +238,34 @@ def execute(cblki, pr):
         grid[sloc[1]-1][sloc[0]-1] -= saved
       else:
         flag("ValueError","no value saved",recind)
+    elif op == "m":
+      if saved != None:
+        grid[sloc[1]-1][sloc[0]-1] *= saved
+      else:
+        flag("ValueError","no value saved",recind)
+    elif op == "d":
+      if saved != None:
+        grid[sloc[1]-1][sloc[0]-1] /= saved
+      else:
+        flag("ValueError","no value saved",recind)
+    elif op == "%":
+      if saved != None:
+        grid[sloc[1]-1][sloc[0]-1] = grid[sloc[1]-1][sloc[0]-1] % saved
+      else:
+        flag("ValueError","no value saved",recind)
     elif op == "~":
       vis = 1
     elif op == "p":
-      print(grid[sloc[1]-1][sloc[0]-1])
+      try:
+        print(grid[sloc[0][1]-1][sloc[0][0]-1])
+      except:
+        print(grid[sloc[1]-1][sloc[0]-1])
+    elif op == "P":
+      print(chr(abs(grid[sloc[1]-1][sloc[0]-1])))
     elif op == "#":
       pass
     elif op == "\n":
-      if newlinec == 0:
+      if newlinec == 0 or newlinec == 1:
         newlinec += 1
       else:
         newlinec = 0
@@ -253,16 +277,50 @@ def execute(cblki, pr):
     elif op == ".":
       if sloc in locked:
         locked.remove(sloc)
-
-
+    elif op == "?":
+      rand = random.randint(1,4)
+      if rand == 1:
+        if sloc[1] != 1:
+          sloc[1] -= 1
+      elif rand == 2:
+        if sloc[1] != 16:
+          sloc[1] += 1
+      elif rand == 3:
+        if sloc[0] != 16:
+          sloc[0] += 1
+      elif rand == 4:
+        if sloc[0] != 1:
+          sloc[0] -= 1
+        
+    if op != "\n":
+      newlinec = 0
       
     #time.sleep(tick/10000)
     if vis == 1:
       visualjob()
       #time.sleep(0.1)
+      #print(newlinec)
       #printer()
-    
-    
+
+    if op == "g":
+      print("")
+      inp = input("number: ")
+      try:
+        grid[sloc[1]-1][sloc[0]-1] = int(inp)
+      except:
+        flag("InputError","error was not in integer format.")
+      
+    elif op == "G":
+      print("")
+      inp = input("character: ")
+      
+  
+  t= time.time_ns()
+
+  if t-s <= 5000000:
+    print("Finished in ({})μs                             ".format((t-s)/10000), end='')
+  else:
+    print("Finished in ({})ms                             ".format((t-s)/10000000), end='')
   
 # -----------------------------------------------------
 
@@ -304,7 +362,7 @@ def process_local(halt):
       r += 1
 
     self = ""
-    properties = ["Crippled Script","Unknown","v0.1",20,0,100,0,0,6]
+    properties = ["AngledScript","Unknown","v0.1",20,0,100,0,0,6]
     for i in temp:
       self = i.replace(" ","")
       self = self.split(":")
