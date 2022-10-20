@@ -66,7 +66,7 @@ projectversion: v0.1
 process_clock: 20
 error_skipping: 0
 parse_timeout: 100
-builtin_visualizer: 0
+builtin_debugger: 0
 alternate_complier: 0
 max_cache: 6
 
@@ -84,7 +84,7 @@ ERROR SKIPPING -- Whether errors stop the program and raise a callback or ignore
 
 PARSE TIMEOUT -- Milliseconds an operation is allowed to take to execute fully. Values above 120 are not recommended because if a function takes this long, something is probably broken.
 
-BUILT-IN VISUALIZER -- Versions 1.3 and onward of ANGL will include a togglable visualizer of the 16x16 grid. Not yet implemented (CURRENTLY USEABLE THROUGH "~")
+BUILT-IN DEBUGGER -- Enables the builtin debugger that is wrapped with the engine itself. Enabing the debugger force-disables the visualizer (~)
 
 ALTERNATE COMPILER -- Whether an alternate compiler is used. Can be useful on unstable platforms, or if main compiler is broken for some reason. 0 = MAIN COMPILER, 1 = ALTERNATE COMPILER, -1 = ATTEMPT BOTH AND OUTPUT LEAST ERRORED BLOCK
 
@@ -117,8 +117,8 @@ _ : Deselect/Unsave (STM).
 Selector Modifiers
 
 Q : Expand selector by one space both down and right.
-o : Shrink selector by one space both up and left.
-q : Reset selector to 1x1.
+q : Shrink selector by one space both up and left.
+$ : Reset selector to 1x1.
 
 
 Incrementors

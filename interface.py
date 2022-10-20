@@ -32,6 +32,15 @@ devud()
 
 import anglENGINE64, sys, os, time
 
+def filehandle(h):
+    try:
+      file = open(h, "r")
+      c = file.read()
+      file.close()
+      return(c)
+    except Exception as e:
+      return(["failed",e])
+
 def run_angl(*args):
   #time.sleep(0.5)
   os.system('clear')
@@ -39,13 +48,13 @@ def run_angl(*args):
   try:
     print("""
   filepath: (STORED) {}""".format(args[0]))
-    u = anglENGINE64.filehandle(args[0])
+    u = filehandle(args[0])
   except:
     f = input("""
   filepath: """)
-    u = anglENGINE64.filehandle(f)
-  if u == ['success']:
+    u = filehandle(f)
+  if u != False:
     print("""  
     Loading...
     """)
-  anglENGINE64.process_local(600)
+  anglENGINE64.process_local(u)

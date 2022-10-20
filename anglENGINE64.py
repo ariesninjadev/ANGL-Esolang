@@ -8,6 +8,8 @@
 
 # WARNING: DO NOT RUN MULTIPLE THREADS WHEN IMPORTING THIS ENGINE.
 
+#20079
+
 
 print("booting angl 1")
 
@@ -17,7 +19,6 @@ import sys, time, random
 c = ""
 script = []
 
-# -----------------------------------------------------
 cblk = 0
 
 def flag(type, err, *args):
@@ -31,7 +32,16 @@ def flag(type, err, *args):
 def execute(cblki, pr):
   global cblk
   cblk = cblki
-  tick = pr[3]
+
+  pr_proj = pr[0]
+  pr_auth = pr[1]
+  pr_vers = pr[2]
+  pr_tick = pr[3]
+  pr_skip = pr[4]
+  pr_tmot = pr[5]
+  pr_dbug = pr[6]
+  pr_altc = pr[7]
+  pr_cach = pr[8]
 
   #        0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1
   #        1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6
@@ -64,12 +74,12 @@ def execute(cblki, pr):
     saved = x
 
   def visualjob():
-    print("--D------------------ GRID ---------------------")
+    print("--------------------- GRID ---------------------")
     for row in grid:
       print(str(row) + "           ")
     #print("")
-    with open(r"test.angl", 'r') as fp:
-      r = len(fp.readlines())
+
+  def visualcut():
     print("\u001b[{};0H".format(5)) # 0::RDB
     
   
@@ -179,11 +189,12 @@ def execute(cblki, pr):
 
   
   sloc = [1,1]
+  bounds = 1
   saved = None
   locked = []
   v = []
   newlinec = 0
-  oplist = ['*', '^', 'v', '>', '<', '@', '_', 'Q', 'o', 'q', '+', '-', 'x', '"', "'", 'a', 's', 'm', 'd', '%', '{', '}', '*', 'P', 'p', 'r', 'R ', 'c', 'C', 'd', 'D', 'u', 'U', '(', ')', '\\', '\n', ' ', ',', '.', 'X','~','#','?']
+  oplist = ['*', '^', 'v', '>', '<', '@', '_', 'Q', '$', 'q', '+', '-', 'x', '"', "'", 'a', 's', 'm', 'd', '%', '{', '*', ';', 'P', 'p', 'r', 'R ', 'c', 'C', 'g', 'G', 'u', 'U', '(', ')', '\\', '\n', ' ', ',', '.', 'X','~','#','?']
   
 # ---------------- PURE INTERPRETER -------------------
 
@@ -203,30 +214,71 @@ def execute(cblki, pr):
       if sloc[1] != 1:
         sloc[1] -= 1
     elif op == "v":
-      if sloc[1] != 16:
+      if sloc[1] != 17-bounds:
         sloc[1] += 1
     elif op == ">":
-      if sloc[0] != 16:
+      if sloc[0] != 17-bounds:
         sloc[0] += 1
     elif op == "<":
       if sloc[0] != 1:
         sloc[0] -= 1
     elif op == "@":
-      saved = grid[sloc[1]-1][sloc[0]-1]
+      if bounds == 1:
+        saved = grid[sloc[1]-1][sloc[0]-1]
+      else:
+        saved = []
+        for j in range(bounds):
+          for i in range(bounds):
+            saved.append(grid[sloc[1]+j-1][sloc[0]+i-1])
     elif op == "_":
       saved = None
     elif op == "+":
-      grid[sloc[1]-1][sloc[0]-1] += 1
+      if [sloc[1],sloc[0]] not in locked:
+        if bounds == 1:
+          grid[sloc[1]-1][sloc[0]-1] += 1
+        else:
+          saved = []
+          for j in range(bounds):
+            for i in range(bounds):
+              grid[sloc[1]+j-1][sloc[0]+i-1] += 1
     elif op == "-":
-      grid[sloc[1]-1][sloc[0]-1] -= 1
+      if [sloc[1],sloc[0]] not in locked:
+        if bounds == 1:
+          grid[sloc[1]-1][sloc[0]-1] -= 1
+        else:
+          saved = []
+          for j in range(bounds):
+            for i in range(bounds):
+              grid[sloc[1]+j-1][sloc[0]+i-1] -= 1
     elif op == "x":
-      grid[sloc[1]-1][sloc[0]-1] = 0
+      if [sloc[1],sloc[0]] not in locked:
+        if bounds == 1:
+          grid[sloc[1]-1][sloc[0]-1] = 0
+        else:
+          saved = []
+          for j in range(bounds):
+            for i in range(bounds):
+              grid[sloc[1]+j-1][sloc[0]+i-1] = 0
     elif op == "'":
-      grid[sloc[1]-1][sloc[0]-1] -= 1
+      if [sloc[1],sloc[0]] not in locked:
+        if bounds == 1:
+          grid[sloc[1]-1][sloc[0]-1] /= 2
+        else:
+          saved = []
+          for j in range(bounds):
+            for i in range(bounds):
+              grid[sloc[1]+j-1][sloc[0]+i-1] /= 2
     elif op == '"':
-      grid[sloc[1]-1][sloc[0]-1] = (grid[sloc[1]-1][sloc[0]-1])*2
+      if [sloc[1],sloc[0]] not in locked:
+        if bounds == 1:
+          grid[sloc[1]-1][sloc[0]-1] *= 2
+        else:
+          saved = []
+          for j in range(bounds):
+            for i in range(bounds):
+              grid[sloc[1]+j-1][sloc[0]+i-1] *= 2
     elif op == " ":
-      time.sleep(tick*10/1000)
+      time.sleep(pr_tick*10/1000)
       pass
     elif op == "a":
       if saved != None:
@@ -291,6 +343,15 @@ def execute(cblki, pr):
       elif rand == 4:
         if sloc[0] != 1:
           sloc[0] -= 1
+    elif op == "$":
+      bounds = 1
+    elif op == "Q":
+      if sloc[0] != 17-bounds and sloc[1] != 17-bounds:
+        bounds += 1
+      else:
+        flag("GraphError", "could not expand selector to index 17 of 16 (are you trying to expand past the edge of the board?)")
+    elif op == "q":
+      bounds -= 1
         
     if op != "\n":
       newlinec = 0
@@ -308,11 +369,38 @@ def execute(cblki, pr):
       try:
         grid[sloc[1]-1][sloc[0]-1] = int(inp)
       except:
-        flag("InputError","error was not in integer format.")
+        flag("InputError","input was not in integer format.")
       
     elif op == "G":
       print("")
       inp = input("character: ")
+      try:
+        grid[sloc[1]-1][sloc[0]-1] = int(ord(inp))
+      except:
+        flag("InputError","input was not a valid character")
+
+    elif op == "u":
+      print("")
+      saved = input("number: ")
+      try:
+        grid[sloc[1]-1][sloc[0]-1] = int(inp)
+      except:
+        flag("InputError","input was not in integer format.")
+      
+    elif op == "U":
+      print("")
+      saved = input("character: ")
+      try:
+        grid[sloc[1]-1][sloc[0]-1] = int(ord(inp))
+      except:
+        flag("InputError","input was not a valid character")
+
+
+
+
+    if vis == 1:
+      visualcut()
+
       
   
   t= time.time_ns()
@@ -324,19 +412,9 @@ def execute(cblki, pr):
   
 # -----------------------------------------------------
 
-def filehandle(h):
-    try:
-      global c
-      file = open(h, "r")
-      c = file.read()
-      file.close()
-      return(["success"])
-    except Exception as e:
-      return(["failed",e])
-
-def process_local(halt):
+def process_local(c):
   
-  global c, script
+  global script
   if c == "":
     flag("BadRequest","absent program file")
   if c[0] != "!":
