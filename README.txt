@@ -40,30 +40,20 @@ Mathematical Computation/Evaluation
 Physics Computation
 Fluid Dynamics
 
-OK USAGES:
+POTENTIAL USAGES:
 Non-classical Mathematics (Sub-Euclidian, Relativity Plot)
 Root programming
 ASCII Construction
 
-BAD USAGES:
-Games
-Simulations
-Graphics Host
-
-TERRIBLE/IMPOSSIBLE USAGES:
-Large-Scale implementation
-Threaded Applications (Unless using Py or JS as mediator)
-GPU Utilization
-
 
 ------------- Program Init -------------
 
-Fully initializing your program is not required. Not initializing your program will simply set the following values:
+Fully initializing your program is not required. Not initializing your program will set the following values:
 
 projectname: AngledScript
 projectauthor: Unknown
 projectversion: v0.1
-process_clock: 20
+process_clock: 23
 error_skipping: 0
 parse_timeout: 100
 builtin_debugger: 0
@@ -74,11 +64,11 @@ In order to modify these options in your project, add the line as shown above to
 
 NOTE: ONLY LETTERS, NUMBERS, _, AND - CAN BE USED
 
-After modifying settings if desired, a line should be left empty. The line following should contain a single start character, "!" (More below), and then the code can begin.
+After modifying settings as desired, a line should be left empty. The line following should contain a single start character, "!" (More below), and the code can begin.
 
 ------------- Init Functions -------------
 
-PROCESS CLOCK -- Milliseconds per tick. ANGL attempts to run at 10 operations per tick, but upon failing will fallback to the next multiple of ticks. Setting to 0 is not recommended as it disables the purpose of the space operation.
+PROCESS CLOCK -- Milliseconds per tick. ANGL attempts to run at 10 operations per tick, but upon failing will fallback to the next multiple of ticks. Setting to 0 is not recommended as it disables the space operation. 23 is an optimal value according to Veghowards lawset.
 
 ERROR SKIPPING -- Whether errors stop the program and raise a callback or ignore the operation. 1 = SKIP, 0 = FLAG
 
@@ -86,7 +76,7 @@ PARSE TIMEOUT -- Milliseconds an operation is allowed to take to execute fully. 
 
 BUILT-IN DEBUGGER -- Enables the builtin debugger that is wrapped with the engine itself. Enabing the debugger force-disables the visualizer (~)
 
-ALTERNATE COMPILER -- Whether an alternate compiler is used. Can be useful on unstable platforms, or if main compiler is broken for some reason. 0 = MAIN COMPILER, 1 = ALTERNATE COMPILER, -1 = ATTEMPT BOTH AND OUTPUT LEAST ERRORED BLOCK
+ALTERNATE COMPILER -- Whether an alternate compiler is used. Can be useful on unstable platforms, or if main compiler causes a memory leak. 0 = MAIN COMPILER, 1 = ALTERNATE COMPILER, -1 = C.A.R. SELECTION (at bottom)
 
 MAX CACHE -- Maximum amount of operations allowed to be cached at a certain point in time. Decrease to free up resources but slow down large programs. 6 is sufficient for most devices (4GB RAM) and programs (<2k OPERATIONS).
 
@@ -195,3 +185,9 @@ Miscellaneous
 , : Unlock space (Can be modified).
 # : Filler character
 ? : Move cursor in a random direction
+
+
+C.A.R. SELECTION:
+The frontend will run the first 120 operations of the program on both compilers and continue.
+
+
