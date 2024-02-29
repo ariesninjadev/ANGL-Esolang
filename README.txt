@@ -35,7 +35,7 @@ Few use cases
 
 ----------------
 
-BEST USAGES:
+PRACTICAL USE CASES:
 Mathematical Computation/Evaluation
 Physics Computation
 Fluid Dynamics
