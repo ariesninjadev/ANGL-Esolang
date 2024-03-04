@@ -83,32 +83,43 @@ Important notes: Some operations can handle multiple inputs/outputs, and some ha
 
 ### Movers
 
-* : Move selector to (1,1).
+\* : Move selector to (1,1).
+
 v : Move selector down one space.
-^ : Move selector up one space.
-> : Move selector right one space.
-< : Move selector left one space.
+
+\^ : Move selector up one space.
+
+\> : Move selector right one space.
+
+\< : Move selector left one space.
 
 
 ### Selection
 
 @ : Save to selector (STM).
+
 _ : Deselect/Unsave (STM).
 
 
 ### Selector Modifiers
 
 Q : Expand selector by one space both down and right.
+
 q : Shrink selector by one space both up and left.
+
 $ : Reset selector to 1x1.
 
 
 ### Incrementors
 
-+ : Adds one to the space(s) selected.
-- : Subtracts one from the space(s) selected.
+\+ : Adds one to the space(s) selected.
+
+\- : Subtracts one from the space(s) selected.
+  
 x : Resets space(s) selected to 0.
+
 " : Doubles space(s) selected.
+
 ' : Halves space(s) selected.
 
 a : Adds the saved spaces' value to the space(s) selected.
@@ -137,18 +148,26 @@ d : Divides the saved spaces' value from the spaces' value(s). Same rules apply.
 ### Standard Outputters
 
 p : Output raw data of spaces selected (Number/Array).
+
 P : Output ASCII table conversion of SPACE (1) selected (ABSOLUTE VALUE).
+
 m : Perform addition operation on selected SPACES (>1) and output number.
+
 f : Perform subtraction operation on selected SPACES (>1) and output number (NEGATIVES ALLOWED).
+
 M : Perform addition operation on selected SPACES (>1) and output ASCII.
+
 F : Perform subtraction operation on selected SPACES (>1) and output ASCII (ABSOLUTE VALUE).
 
 
-###Other Ouputters/Savers
+### Other Ouputters/Savers
 
 r : Output selected row.
+
 c : Output selected column.
+
 R : Save selected row.
+
 C : Save selected column.
 
 
@@ -157,24 +176,35 @@ C : Save selected column.
 [_CODE_]# : Loop _CODE_ for # times.
 
 d : Get numerical user input and insert as selected space(s) value.
+
 D : Get 1 character user input, convert via ASCII, and insert as selected space(s) value.
+
 u : Get numerical user input and save it.
+
 U : Get 1 character user input, convert via ASCII, and save.
 
 ( : Move selector to the first instance of the saved number (Left-Right, Top-Bottom).
+
 ) : Move selector to the last instance of the saved number (Bottom-Top, Right-Left).
 
 \ : Sets selected space to 1 if value of selected space is greater than value of saved space.
+
 = : Sets current space to 1 if current space(s) matches saved value(s), otherwise set to 0. Same amount of tiles must be selected.
 
 
 ### Miscellaneous
 
 [space] : Halt for 10 ticks (200 ms by default).
+
 [newline] : Deselect, Move to (1,1).
+
 [double_newline] : Deselect, Move to (1,1), Reset all tiles to 0.
+
 . : Lock space (Cannot be modified).
+
 , : Unlock space (Can be modified).
-# : Filler character
+
+\# : Filler character
+
 ? : Move cursor in a random direction
 
