@@ -1,27 +1,19 @@
----------------------------------------------------------------
-
-       d8888   888b    888    .d8888b.    888      
-      d88888   8888b   888   d88P  Y88b   888      
-     d88P888   88888b  888   888    888   888      
-    d88P 888   888Y88b 888   888          888      
-   d88P  888   888 Y88b888   888  88888   888      
-  d88P   888   888  Y88888   888    888   888      
- d8888888888   888   Y8888   Y88b  d88P   888      
-d88P     888   888    Y888    "Y8888P88   88888888
+# ANGL EsoLang
 
 Abrupt Numerical Graph Language
 
 By Aries Powvalla
----------------------------------------------------------------
 
-ANGLing Laws:
+---
+
+## ANGLing Laws:
 1. Every ANGL program operates on a 16x16 grid.
   a. From (1,1) at top left to (16,16) at bottom right.
 2. Space values can span -128 to 128.
 3. At the beginning of the program, the (1,1) tile is selected.
 4. Commands can be used to manipulate the grid.
 
-------------- Practical Usage Pros/Cons -------------
+## Practical Usage Pros/Cons
 
 Pros:
 Extremely low file size
@@ -33,7 +25,7 @@ Very complex syntax
 Not expandable
 Few use cases
 
-----------------
+---
 
 PRACTICAL USE CASES:
 Mathematical Computation/Evaluation
@@ -46,7 +38,7 @@ Root programming
 ASCII Construction
 
 
-------------- Program Init -------------
+## Program Init
 
 Fully initializing your program is not required. Not initializing your program will set the following values:
 
@@ -60,13 +52,13 @@ builtin_debugger: 0
 alternate_complier: 0
 max_cache: 6
 
-In order to modify these options in your project, add the line as shown above to the beginning of the .angl file.
+In order to modify these options in your project, add the line as shown above to the beginning of the .angl (or .a) file.
 
 NOTE: ONLY LETTERS, NUMBERS, _, AND - CAN BE USED
 
 After modifying settings as desired, a line should be left empty. The line following should contain a single start character, "!" (More below), and the code can begin.
 
-------------- Init Functions -------------
+## Init values
 
 PROCESS CLOCK -- Milliseconds per tick. ANGL attempts to run at 10 operations per tick, but upon failing will fallback to the next multiple of ticks. Setting to 0 is not recommended as it disables the space operation. 23 is an optimal value according to Veghowards lawset.
 
@@ -76,20 +68,20 @@ PARSE TIMEOUT -- Milliseconds an operation is allowed to take to execute fully. 
 
 BUILT-IN DEBUGGER -- Enables the builtin debugger that is wrapped with the engine itself. Enabing the debugger force-disables the visualizer (~)
 
-ALTERNATE COMPILER -- Whether an alternate compiler is used. Can be useful on unstable platforms, or if main compiler causes a memory leak. 0 = MAIN COMPILER, 1 = ALTERNATE COMPILER, -1 = C.A.R. SELECTION (at bottom)
+ALTERNATE COMPILER -- Whether an alternate compiler is used. Can be useful on unstable platforms, or if main compiler causes a memory leak. 0 = MAIN COMPILER, 1 = ALTERNATE COMPILER, -1 = C.A.R. SELECTION (Test both once, then use best)
 
 MAX CACHE -- Maximum amount of operations allowed to be cached at a certain point in time. Decrease to free up resources but slow down large programs. 6 is sufficient for most devices (4GB RAM) and programs (<2k OPERATIONS).
 
-------------- Operations -------------
+## Operations
 
 Important notes: Some operations can handle multiple inputs/outputs, and some have a separate function for such cases. When the guide refers to a "selected" space, that is where the selector is currently placed. When the guide refers to a "saved" space, that is the position(s) previously saved using the (@) operation.
 
-File Operations
+### File Operations
 
 ! : Script start/end (Comments can be added only after the final "!" character.)
 
 
-Movers
+### Movers
 
 * : Move selector to (1,1).
 v : Move selector down one space.
@@ -98,20 +90,20 @@ v : Move selector down one space.
 < : Move selector left one space.
 
 
-Selection
+### Selection
 
 @ : Save to selector (STM).
 _ : Deselect/Unsave (STM).
 
 
-Selector Modifiers
+### Selector Modifiers
 
 Q : Expand selector by one space both down and right.
 q : Shrink selector by one space both up and left.
 $ : Reset selector to 1x1.
 
 
-Incrementors
+### Incrementors
 
 + : Adds one to the space(s) selected.
 - : Subtracts one from the space(s) selected.
@@ -133,7 +125,7 @@ d : Divides the saved spaces' value from the spaces' value(s). Same rules apply.
 
 % : Performs the modulo of the selected space over the saved space. Same rules apply.
 
-Self Incrementors
+### Self Incrementors
 
 { : Saves the value of all selected spaces' values added together.
 
@@ -142,7 +134,7 @@ Self Incrementors
 * : Saves the value of all selected spaces' values multiplied together.
 
 
-Standard Outputters
+### Standard Outputters
 
 p : Output raw data of spaces selected (Number/Array).
 P : Output ASCII table conversion of SPACE (1) selected (ABSOLUTE VALUE).
@@ -152,7 +144,7 @@ M : Perform addition operation on selected SPACES (>1) and output ASCII.
 F : Perform subtraction operation on selected SPACES (>1) and output ASCII (ABSOLUTE VALUE).
 
 
-Other Ouputters/Savers
+###Other Ouputters/Savers
 
 r : Output selected row.
 c : Output selected column.
@@ -160,7 +152,7 @@ R : Save selected row.
 C : Save selected column.
 
 
-Functions
+### Functions
 
 [_CODE_]# : Loop _CODE_ for # times.
 
@@ -176,7 +168,7 @@ U : Get 1 character user input, convert via ASCII, and save.
 = : Sets current space to 1 if current space(s) matches saved value(s), otherwise set to 0. Same amount of tiles must be selected.
 
 
-Miscellaneous
+### Miscellaneous
 
 [space] : Halt for 10 ticks (200 ms by default).
 [newline] : Deselect, Move to (1,1).
@@ -185,9 +177,4 @@ Miscellaneous
 , : Unlock space (Can be modified).
 # : Filler character
 ? : Move cursor in a random direction
-
-
-C.A.R. SELECTION:
-The frontend will run the first 120 operations of the program on both compilers and continue.
-
 
